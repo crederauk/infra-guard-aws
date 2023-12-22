@@ -1,7 +1,7 @@
 Feature: Development hosts are isolated from production hosts
 
   Scenario Outline: Hosts within development environment can
-  successfully ping each another
+  successfully ping each other
     When host <HostA> pings host <HostB>
     Then the ping is successful
 
