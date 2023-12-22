@@ -1,0 +1,3 @@
+aws:
+  profile: AdministratorAccess-100000000000
+  region: eu-west-1

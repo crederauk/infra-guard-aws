@@ -11,11 +11,11 @@
 
 ## Categorisation of testing scenarios
 
-- Network access from hostA to hostB
+- Network access from HostA to HostB
 - Host metrics
 - Host attributes
 
-### Network access from hostA to hostB
+### Network access from HostA to HostB
 
 - Ping (ICMP)
 - Access a port (TCP)

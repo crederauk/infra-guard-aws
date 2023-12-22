@@ -1,0 +1,54 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+buildscript {
+    ext {
+        cucumberVersion = '7.15.0'
+        junitPlatformSuiteVersion = '1.10.1'
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '3.2.1-SNAPSHOT'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.21'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.9.21'
+}
+
+group = 'uk.co.credera'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '21'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+    //region Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //endregion
+
+    //region Testing (Cucumber)
+    testImplementation group: 'io.cucumber', name: 'cucumber-java8', version: cucumberVersion
+    testImplementation group: 'io.cucumber', name: 'cucumber-spring', version: cucumberVersion
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: cucumberVersion
+    testImplementation group: 'org.junit.platform', name: 'junit-platform-suite', version: junitPlatformSuiteVersion
+    //endregion
+}
+
+tasks.withType(KotlinCompile) {
+    kotlinOptions {
+        freeCompilerArgs += '-Xjsr305=strict'
+        jvmTarget = '21'
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

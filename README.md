@@ -1,5 +1,5 @@
 
-# infra-guard-aws
+# Infra Guard AWS
 
 Test Automation Tool for AWS Infrastructure
 
@@ -29,3 +29,27 @@ If you get the following error
 Then, login to SSO account and try again
 
     aws sso login --profile AdministratorAccess-100000000000
+
+## Configure application
+
+Add the profile configured in [Configure AWS CLI profile](#configure-aws-cli-profile) and the AWS Region to `application.yml`, for example:
+
+```yaml
+aws:
+  profile: AdministratorAccess-100000000000
+  region: eu-west-1
+```
+
+## Add Gherkin feature files
+
+Gherkin feature files are located within the `src/test/resources/gherkin` directory. Using the existing feature files for reference, create feature files to describe your own AWS infrastructure.
+
+## Usage
+
+Test your AWS infrastructure by typing
+
+    ./gradlew clean test --info
+
+## Use Cases
+
+[Test tool use cases](use-cases.md)
