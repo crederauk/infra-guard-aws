@@ -44,11 +44,13 @@ aws:
 
 Gherkin feature files are located within the `src/test/resources/gherkin` directory. Using the existing feature files for reference, create feature files to describe your own AWS infrastructure.
 
+Refer to [Test tool use cases](use-cases.md) for further example scenarios.
+
 ## Usage
 
 Test your AWS infrastructure by typing
 
-    ./gradlew clean test --info
+    AWS_PROFILE=AdministratorAccess-100000000000 ./gradlew clean test --info
 
 ## Use Cases
 

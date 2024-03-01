@@ -34,6 +34,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     //endregion
 
+    //region Logging
+    implementation group: 'io.github.microutils', name: 'kotlin-logging', version: '3.0.5'
+    //endregion
+
     //region Testing (Cucumber)
     testImplementation group: 'io.cucumber', name: 'cucumber-java8', version: cucumberVersion
     testImplementation group: 'io.cucumber', name: 'cucumber-spring', version: cucumberVersion
