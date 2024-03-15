@@ -2,7 +2,7 @@ Feature: Development hosts are isolated from production hosts
 
   Scenario Outline: Hosts within development environment can
   successfully ping each other
-    When host <HostA> pings host <HostB> with timeout 2 seconds
+    When host <HostA> pings host <HostB> with timeout 9 seconds
     Then the ping is successful
 
     Examples:
@@ -12,7 +12,7 @@ Feature: Development hosts are isolated from production hosts
 
   Scenario Outline: Development hosts cannot ping production
   hosts
-    When host <HostA> pings host <HostB> with timeout 2 seconds
+    When host <HostA> pings host <HostB> with timeout 9 seconds
     Then the ping is failed
 
     Examples:

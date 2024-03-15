@@ -1,0 +1,37 @@
+<!--
+    Log Levels
+
+    * priority: ALL < TRACE < DEBUG < INFO < WARN < ERROR < OFF or INHERITED, or its synonym NULL
+    * The special case-insensitive value INHERITED, or its synonym NULL, will force the level of
+      the logger to be inherited from higher up in the hierarchy.
+
+    See also: http://stackoverflow.com/questions/7839565/logging-levels-logback-rule-of-thumb-to-assign-log-levels
+  -->
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--
+                Pattern examples
+
+                * <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                * <pattern>%-5level %msg%n</pattern>
+                * <pattern>%replace(%-6level){'INFO  ', ''}%msg%n</pattern>
+            -->
+            <pattern>%replace(%-6level){'INFO  ', ''}%msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="info">
+        <!--
+            In accordance with the https://12factor.net/logs (Logs) best practice from the
+            https://12factor.net (Twelve-Factor App Practices), logs are written as an ordered event stream to stdout so
+            that the logfiles will be managed by the execution environment.
+        -->
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <!-- Equivalent to hibernate.show_sql=true -->
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <!-- Prints the bound parameters among other things. -->
+    <logger name="org.hibernate.type" level="TRACE"/>
+</configuration>
