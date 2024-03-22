@@ -1,6 +1,9 @@
 ######################
 # Project Specific
 ######################
+.env
+.env.local
+.env.staging
 HELP.md
 .gradle
 build/

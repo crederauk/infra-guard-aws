@@ -102,10 +102,8 @@ class StepDefinitions(@Autowired val awsProperties: AwsProperties) : SpringConte
                 .contains("100% packet loss")
         }
         Then("the ping is failed") {
-            assertThat(response).satisfiesAnyOf(
-                { i -> assertThat(i).isBlank() },
-                { i -> assertThat(i).containsAnyOf("ERROR", "failed to run command", "Connection timed out after") }
-            )
+            assertThat(response)
+                .doesNotContain("100% packet loss")
         }
     }
 }

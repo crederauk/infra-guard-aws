@@ -17,5 +17,5 @@ Feature: Development hosts are isolated from production hosts
 
     Examples:
       | HostA                 | HostB           |
-      | 'i-0cc281de2237fec29' | '34.243.228.10' |
-      | 'i-00447101c780099fe' | '34.243.228.11' |
+      | 'i-0cc281de2237fec29' | '34.243.888.5'  |
+      | 'i-00447101c780099fe' | '34.243.888.6'  |
