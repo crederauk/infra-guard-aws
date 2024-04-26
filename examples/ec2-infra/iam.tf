@@ -13,7 +13,12 @@ resource "aws_iam_policy" "session_manager_policy" {
           "ssm:ResumeSession",
           "ssm:TerminateSession",
           "ssm:DescribeSessions",
-          "ssm:GetSessionDocument"
+          "ssm:GetSessionDocument",
+          "ssmmessages:CreateControlChannel",
+          "ssmmessages:CreateDataChannel",
+          "ssmmessages:OpenControlChannel",
+          "ssmmessages:OpenDataChannel",
+          "ssm:UpdateInstanceInformation"
         ],
         "Resource" : ["*"]
       }
