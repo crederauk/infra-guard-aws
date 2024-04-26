@@ -152,3 +152,11 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+######################
+# Infra specific
+######################
+
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
