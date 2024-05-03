@@ -1,0 +1,18 @@
+<!--
+    Log Levels
+
+    * priority: ALL < TRACE < DEBUG < INFO < WARN < ERROR < OFF or INHERITED, or its synonym NULL
+    * The special case-insensitive value INHERITED, or its synonym NULL, will force the level of
+      the logger to be inherited from higher up in the hierarchy.
+  -->
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%replace(%-6level){'INFO  ', ''}%msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <logger name="org.springframework" level="WARN"/>
+</configuration>
