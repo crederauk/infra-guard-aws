@@ -99,11 +99,11 @@ class StepDefinitions(@Autowired val awsProperties: AwsProperties) : SpringConte
                 .withFailMessage("Response was blank. Check previous output for warnings. This could need dev debugging as one of the `aws ssm` commands might have failed.")
                 .isNotBlank()
             assertThat(response)
-                .contains("100% packet loss")
+                .doesNotContain("100% packet loss")
         }
         Then("the ping is failed") {
             assertThat(response)
-                .doesNotContain("100% packet loss")
+                .doesNotContain(" 0% packet loss")
         }
     }
 }

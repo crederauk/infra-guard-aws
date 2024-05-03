@@ -1,17 +1,20 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     ext {
-        cucumberVersion = '7.15.0'
-        junitPlatformSuiteVersion = '1.10.1'
+        cucumberVersion = '7.17.0'
+        junitPlatformSuiteVersion = '1.10.2'
     }
 }
 
 plugins {
-    id 'org.springframework.boot' version '3.2.1-SNAPSHOT'
-    id 'io.spring.dependency-management' version '1.1.4'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.21'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.9.21'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.5'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.9.23'
+    // Adds `gradle dependencyUpdates` task
+    id 'com.github.ben-manes.versions' version '0.51.0'
 }
 
 group = 'uk.co.credera'
@@ -46,13 +49,37 @@ dependencies {
     //endregion
 }
 
-tasks.withType(KotlinCompile) {
-    kotlinOptions {
-        freeCompilerArgs += '-Xjsr305=strict'
-        jvmTarget = '21'
+tasks.withType(KotlinCompile).configureEach {
+    compilerOptions {
+        freeCompilerArgs.add('-Xjsr305=strict')
+        jvmTarget = JvmTarget.JVM_21
     }
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+/**
+ * Returns an int representing how mature [version] is.
+ * Higher numbers are more mature.
+ */
+static def maturityLevel(String version) {
+    /**
+     * Version qualifiers, in order from least to most mature.
+     * The most mature is to have no qualifier at all.
+     */
+    def qualifiers = ["preview", "alpha", "beta", "m", "cr", "rc"]
+    def qualifiersRegex = qualifiers.collect { /(?i).*[.\-]$it[.\-\d]*/ }
+
+    def index = qualifiersRegex.findIndexOf { version ==~ it }
+    return (index < 0) ? qualifiers.size : index
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        def candidateMaturity = maturityLevel(it.candidate.version)
+        def currentMaturity = maturityLevel(it.currentVersion)
+        candidateMaturity < currentMaturity
+    }
 }
