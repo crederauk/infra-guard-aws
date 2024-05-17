@@ -14,7 +14,7 @@ Verify the version of AWS CLI
 
     aws --version
 
-Configure CLI profile in `~/.aws/config`
+Configure CLI profile in `~/.aws/config` (for non-SSO profile options refer to [1])
 
     aws configure sso
 
@@ -55,3 +55,8 @@ Test your AWS infrastructure by typing
 ## Use Cases
 
 [Test tool use cases](use-cases.md)
+
+## References
+
+1. For instructions on how to setup an AWS Profile refer to https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-format-profile
+
