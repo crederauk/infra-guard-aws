@@ -93,7 +93,7 @@ class Ssm(@Autowired val awsProperties: AwsProperties) {
                 "Non-successful status '$status' returned when $instanceId ran '$command' with a timeout of $timeoutSeconds seconds."
             }
         }
-        response = checkCommandStatus(commandId, "CommandInvocations[*].CommandPlugins[*].Status")
+        response = checkCommandStatus(commandId, "CommandInvocations[*].CommandPlugins[*].Output[]")
         return response
     }
 }
