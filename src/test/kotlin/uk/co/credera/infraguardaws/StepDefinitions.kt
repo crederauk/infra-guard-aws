@@ -16,9 +16,7 @@ class StepDefinitions(@Autowired val ssmService: SsmService) : SpringContextConf
     init {
         When("host {string} pings host {string} with timeout {long} seconds")
         { hostA: String, hostB: String, timeoutSeconds: Long ->
-            requireNotNull(hostA)
             require(hostA.isNotBlank())
-            requireNotNull(hostB)
             require(hostB.isNotBlank())
             require(timeoutSeconds > -1)
             commandResult = ssmService.exec(hostA, "ping -c1 $hostB", timeoutSeconds)
