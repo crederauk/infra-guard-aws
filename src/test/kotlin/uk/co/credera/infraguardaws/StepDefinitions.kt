@@ -9,10 +9,11 @@ import uk.co.credera.infraguardaws.util.Exec
 import java.util.concurrent.TimeUnit
 
 /**
- * @see https://cucumber.io/docs/cucumber/step-definitions/?lang=kotlin
+ * See https://cucumber.io/docs/cucumber/step-definitions/?lang=kotlin
  */
 class StepDefinitions(@Autowired val awsProperties: AwsProperties) : SpringContextConfiguration(), En {
     val log = KotlinLogging.logger {}
+    var commandStatus: CommandStatus = CommandStatus.READY
     lateinit var response: String
 
     init {
@@ -29,6 +30,7 @@ class StepDefinitions(@Autowired val awsProperties: AwsProperties) : SpringConte
             requireNotNull(hostB)
             require(hostB.isNotBlank())
             require(timeoutSeconds > -1)
+            commandStatus = CommandStatus.READY // make sure to clear the status from previous runs before execution
             val pingCommand = """
                 aws ssm send-command \
                 --document-name "AWS-RunShellScript" \
@@ -43,6 +45,7 @@ class StepDefinitions(@Autowired val awsProperties: AwsProperties) : SpringConte
             try {
                 commandId = Exec.command(pingCommand)
             } catch (e: RuntimeException) {
+                commandStatus = CommandStatus.FAILED
                 if (e.message!!.contains("Error when retrieving token from sso")) {
                     fail<Nothing>(
                         "Error when retrieving token from sso: Token has expired and refresh failed: " +
@@ -52,6 +55,7 @@ class StepDefinitions(@Autowired val awsProperties: AwsProperties) : SpringConte
                 }
                 throw e
             }
+            commandStatus = CommandStatus.IN_PROGRESS
             val checkStatusCommand = """
                 aws ssm list-command-invocations \
                 --command-id "$commandId" \
@@ -71,13 +75,17 @@ class StepDefinitions(@Autowired val awsProperties: AwsProperties) : SpringConte
                 count++
             }
             if (status == "InProgress") {
-                log.warn {
+                commandStatus = CommandStatus.TIMED_OUT
+                log.debug {
                     "Attempting to gather command output while it's still in progress: " +
                             "Consider increasing the timeout inside the feature file: " +
                             "When $hostA pings $hostB with timeout $timeoutSeconds seconds"
                 }
             } else if (status != "Success") {
-                log.warn { "Non-Success status $status returned when $hostA pings $hostB with timeout $timeoutSeconds seconds" }
+                commandStatus = CommandStatus.FAILED
+                log.debug { "Non-Success status $status returned when $hostA pings $hostB with timeout $timeoutSeconds seconds" }
+            } else {
+                commandStatus = CommandStatus.SUCCESS
             }
             val gatherStdoutCommand = """
                 aws ssm list-command-invocations \
@@ -95,6 +103,8 @@ class StepDefinitions(@Autowired val awsProperties: AwsProperties) : SpringConte
             }
         }
         Then("the ping is successful") {
+            assertThat(commandStatus)
+                .isNotIn(CommandStatus.TIMED_OUT, CommandStatus.FAILED)
             assertThat(response)
                 .withFailMessage("Response was blank. Check previous output for warnings. This could need dev debugging as one of the `aws ssm` commands might have failed.")
                 .isNotBlank()
