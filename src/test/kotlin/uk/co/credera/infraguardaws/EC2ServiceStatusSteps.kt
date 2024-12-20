@@ -14,7 +14,7 @@ class EC2ServiceStatusSteps(@Autowired val ssmService: SsmService) : SpringConte
     lateinit var commandResult: CommandResult
 
     init {
-        When("host {string} checks  service status {string} with timeout {long} seconds") { host: String, serviceCommand: String, timeoutSeconds: Long ->
+        When("service status on host {string} is active for service {string} with timeout {long} seconds") { host: String, serviceCommand: String, timeoutSeconds: Long ->
             require(host.isNotBlank())
             require(serviceCommand.isNotBlank())
             require(timeoutSeconds > -1)

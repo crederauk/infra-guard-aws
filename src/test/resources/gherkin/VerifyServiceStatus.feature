@@ -2,7 +2,7 @@ Feature: Service status on a specified hosts
 
   Scenario Outline: Services are running on the specified hosts
   hosts
-    When host <Host> checks  service status <ServiceCommand> with timeout 9 seconds
+    When service status on host <Host> is active for service <ServiceCommand> with timeout 9 seconds
     Then the service is running
 
     Examples:
