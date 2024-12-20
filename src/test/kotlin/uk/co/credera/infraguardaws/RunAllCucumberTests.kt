@@ -1,10 +1,8 @@
 package uk.co.credera.infraguardaws
 
-import io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
-import io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
+import io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME
 import org.junit.platform.suite.api.Suite
 import org.junit.platform.suite.api.ConfigurationParameter
-import org.junit.platform.suite.api.IncludeEngines
 import org.junit.platform.suite.api.SelectClasspathResource
 /**
  * This class serves as the runner for Cucumber/Gherkin tests. Gherkin feature files are located within the specified
