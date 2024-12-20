@@ -33,7 +33,5 @@ class PingSteps(@Autowired val ssmService: SsmService) : SpringContextConfigurat
             assertThat(commandResult.output)
                 .doesNotContain(" 0% packet loss")
         }
-
-        }
-
     }
+}
