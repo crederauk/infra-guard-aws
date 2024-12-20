@@ -10,7 +10,7 @@ import uk.co.credera.infraguardaws.service.SsmService
 /**
  * See https://cucumber.io/docs/cucumber/step-definitions/?lang=kotlin
  */
-class StepDefinitions(@Autowired val ssmService: SsmService) : SpringContextConfiguration(), En {
+class PingSteps(@Autowired val ssmService: SsmService) : SpringContextConfiguration(), En {
     lateinit var commandResult: CommandResult
 
     init {
