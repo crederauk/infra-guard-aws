@@ -14,11 +14,11 @@ class EC2ServiceStatusSteps(@Autowired val ssmService: SsmService) : SpringConte
     lateinit var commandResult: CommandResult
 
     init {
-        When("service status on host {string} is active for service {string} with timeout {long} seconds") { host: String, serviceCommand: String, timeoutSeconds: Long ->
+        When("service status on host {string} is active for service {string} with timeout {long} seconds") { host: String, serviceName: String, timeoutSeconds: Long ->
             require(host.isNotBlank())
-            require(serviceCommand.isNotBlank())
+            require(serviceName.isNotBlank())
             require(timeoutSeconds > -1)
-            commandResult = ssmService.exec(host, serviceCommand, timeoutSeconds)
+            commandResult = ssmService.exec(host,"service $serviceName status" , timeoutSeconds)
         }
         Then("the service is running") {
             assertThat(commandResult.output)
