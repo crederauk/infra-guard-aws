@@ -58,7 +58,7 @@ Use below docker commands, If you dont want setup gradle and java and wants to e
 from project project root directory where docker file exists. 
 
     docker build -t infra-guard .
-    docker run -it -v /Users/vidya.kharje/extent-report:/app/reports/extent-report  -v ~/.aws:/root/.aws infra-guard:latest
+    docker run -it -v /Users/vidya.kharje/extent-report:/app/reports/extent-report  -v ~/.aws:/root/.aws:ro infra-guard:latest
 
 First volume mount is to make sure reports are available in host machine for your reference.
 
