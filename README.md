@@ -48,9 +48,21 @@ Refer to [Test tool use cases](use-cases.md) for further example scenarios.
 
 ## Usage
 
-Test your AWS infrastructure by typing
+* Test your AWS infrastructure by typing
 
-    AWS_PROFILE=AdministratorAccess-100000000000 ./gradlew clean test --info
+      AWS_PROFILE=AdministratorAccess-100000000000 ./gradlew clean test --info
+
+* Test your AWS infra with container
+
+Use below docker commands, If you dont want setup gradle and java and wants to exeucte test case on your local with docker container 
+from project project root directory where docker file exists. 
+
+    docker build -t infra-guard .
+    docker run -it -v /Users/vidya.kharje/extent-report:/app/reports/extent-report  -v ~/.aws:/root/.aws infra-guard:latest
+
+First volume mount is to make sure reports are available in host machine for your reference.
+
+Second volume mount is to use aws sso token generated in step **Configure AWS CLI profile** for executing test cases. 
 
 ## Use Cases
 
@@ -59,4 +71,3 @@ Test your AWS infrastructure by typing
 ## References
 
 1. For instructions on how to setup an AWS Profile refer to https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-format-profile
-
