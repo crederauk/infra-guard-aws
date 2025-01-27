@@ -1,0 +1,23 @@
+name: Infra Guard PR checks
+on:
+  pull_request:
+    branches: main
+  workflow_dispatch:
+
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID}}:role/crederauk_aws_rag_github_cicd_role
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
