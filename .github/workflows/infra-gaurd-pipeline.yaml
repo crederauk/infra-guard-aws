@@ -1,0 +1,20 @@
+name: Run Infra Guard tool
+on:
+    workflow_dispatch:
+
+jobs:
+    run-infra-gaurd-tool:
+        name: Update terraform variables
+        uses: ./.github/workflows/build-and-run-tool.yaml
+        secrets:
+            AWS_DEFAULT_REGION: ""
+            AWS_ACCOUNT_ID: ""
+            AWS_SECRET_ACCESS_KEY: ""
+            AWS_SESSION_TOKEN: ""
+
+
+
+
+
+
+
