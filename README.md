@@ -54,11 +54,10 @@ Refer to [Test tool use cases](use-cases.md) for further example scenarios.
 
 * Test your AWS infra with container
 
-Use below docker commands, If you dont want setup gradle and java and wants to exeucte test case on your local with docker container 
-from project project root directory where docker file exists. 
+Use the following Docker commands if you don't want to set up Gradle and Java but still want to execute test cases locally. Run these commands from the project's root directory, where the Dockerfile exists. Set the EXTENT_REPORT_PATH environment variable to the path on your local machine where you want to store test reports. Ensure that your AWS account access is set up locally and that the credentials file exists in the .aws folder.
 
     docker build -t infra-guard .
-    docker run -it -v /Users/vidya.kharje/extent-report:/app/reports/extent-report  -v ~/.aws:/root/.aws:ro infra-guard:latest
+    docker run -it -v $EXTENT_REPORT_PATH/extent-report:/app/reports/extent-report  -v ~/.aws:/root/.aws:ro infra-guard:latest
 
 First volume mount is to make sure reports are available in host machine for your reference.
 
