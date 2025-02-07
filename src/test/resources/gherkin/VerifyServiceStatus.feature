@@ -1,9 +1,8 @@
-Feature: Service status on a specified hosts
+Feature: Ensure specified services are running on specified hosts
 
-  Scenario Outline: Services are running on the specified hosts
-  hosts
-    When service status on host <Host> is active for service <ServiceName> with timeout 9 seconds
-    Then the service is running
+  Scenario Outline: Desired services are running on specified hosts
+    Given a list of specified hosts and services
+    When checking service status on host <Host> for service <ServiceName> with timeout of 9 seconds
 
     Examples:
       | Host                | ServiceName       |
