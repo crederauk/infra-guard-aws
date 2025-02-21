@@ -6,12 +6,12 @@ on:
         required: true
       AWS_ACCOUNT_ID:
         required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
       AWS_SESSION_TOKEN:
         required: true
-
-
 
 jobs:
   build-and-run:
@@ -29,12 +29,11 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: "Setup Gradle"
         uses: gradle/actions/setup-gradle@v3
 
       - name: "Build gradle"
-        run: AWS_PROFILE=AdministratorAccess-${{ secrets.AWS_ACCOUNT_ID }} ./gradlew clean test --info
-
+        run: AWS_PROFILE=AdministratorAccess-${{ secrets.AWS_ACCOUNT_ID }} gradle clean test --info
