@@ -59,4 +59,3 @@ Test your AWS infrastructure by typing
 ## References
 
 1. For instructions on how to setup an AWS Profile refer to https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-format-profile
-
