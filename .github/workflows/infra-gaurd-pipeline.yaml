@@ -11,5 +11,5 @@ jobs:
         uses: ./.github/workflows/build-and-run-tool.yaml
         secrets:
             AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ROLE_ID }}
+            AWS_ROLE_ID: ${{ secrets.AWS_ROLE_ID }}
 
