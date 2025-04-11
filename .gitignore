@@ -12,6 +12,7 @@ reports/extent-report/**
 !**/src/test/**
 
 ######################
+
 # Package Files
 ######################
 *.jar
