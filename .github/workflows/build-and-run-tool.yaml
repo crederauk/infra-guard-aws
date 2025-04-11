@@ -35,7 +35,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: "Build gradle"
-        run: gradle clean test --info
+        run: AWS_PROFILE=AdministratorAccess-${{ secrets.AWS_ACCOUNT_ID }} gradle clean test --info
 
       # - name: "Publish Report"
       #   uses: JamesIves/github-pages-deploy-action@v4.5.0
