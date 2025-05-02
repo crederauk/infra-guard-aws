@@ -9,6 +9,7 @@ HELP.md
 build/
 !**/src/main/**
 !**/src/test/**
+reports/
 
 ######################
 # Package Files
