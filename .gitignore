@@ -7,7 +7,7 @@
 HELP.md
 .gradle
 build/
-reports/extent-report/**
+reports/
 !**/src/main/**
 !**/src/test/**
 
