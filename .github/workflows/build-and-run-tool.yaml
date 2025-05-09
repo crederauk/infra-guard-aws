@@ -1,0 +1,45 @@
+name: Infra Guard Pipeline
+on:
+  workflow_call:
+    secrets:
+      AWS_ACCOUNT_ID:
+        required: true
+      AWS_ROLE_ID:
+        required: true
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_ROLE_ID }}
+          role-session-name: SandpitDeploymentRole
+          aws-region: eu-west-1
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - name: "Setup Gradle"
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: "Build gradle"
+        run: AWS_PROFILE=AdministratorAccess-${{ secrets.AWS_ACCOUNT_ID }} gradle clean test --info
+
+      # - name: "Publish Report"
+      #   uses: JamesIves/github-pages-deploy-action@v4.5.0
+      #   if: always()
+      #   with:
+      #     branch: 'main'
+      #     folder: ./reports/extent-report/HTMLReport

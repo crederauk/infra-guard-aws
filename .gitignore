@@ -7,10 +7,12 @@
 HELP.md
 .gradle
 build/
+reports/
 !**/src/main/**
 !**/src/test/**
 
 ######################
+
 # Package Files
 ######################
 *.jar
