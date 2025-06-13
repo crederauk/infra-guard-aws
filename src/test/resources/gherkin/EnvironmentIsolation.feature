@@ -1,3 +1,4 @@
+@aws
 Feature: Development hosts are isolated from production hosts
 
   Scenario Outline: Hosts within development environment can

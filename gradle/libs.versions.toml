@@ -1,0 +1,25 @@
+# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+
+[versions]
+javaLanguage = "21"
+kotlinLoggingJvm = "7.0.7"
+cucumberJava = "7.23.0"
+junitPlatformSuite = "1.13.1"
+extentreportsCucumberAdapter = "1.14.0"
+extentreports = "5.1.2"
+
+[libraries]
+kotlinLoggingJvm = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlinLoggingJvm" }
+cucumberJava = { module = "io.cucumber:cucumber-java", version.ref = "cucumberJava" }
+cucumberSpring = { module = "io.cucumber:cucumber-spring", version.ref = "cucumberJava" }
+cucumberJunitPlatformEngine = { module = "io.cucumber:cucumber-junit-platform-engine", version.ref = "cucumberJava" }
+junitPlatformSuite = { module = "org.junit.platform:junit-platform-suite", version.ref = "junitPlatformSuite" }
+extentreportsCucumberAdapter = { module = "tech.grasshopper:extentreports-cucumber7-adapter", version.ref = "extentreportsCucumberAdapter" }
+extentreports = { module = "com.aventstack:extentreports", version.ref = "extentreports" }
+
+[plugins]
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version = "2.1.21" }
+kotlinSpring = { id = "org.jetbrains.kotlin.plugin.spring", version = "2.1.21" }
+benManesVersions = { id = "com.github.ben-manes.versions", version = "0.52.0" }
+springBoot = { id = "org.springframework.boot", version = "3.5.0" }
+springDependencyManagement = { id = "io.spring.dependency-management", version = "1.1.7" }
