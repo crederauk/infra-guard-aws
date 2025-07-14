@@ -1,7 +1,7 @@
 package uk.co.credera.infraguardaws.service
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.annotation.PostConstruct
-import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import uk.co.credera.infraguardaws.configuration.AwsProperties

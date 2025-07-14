@@ -1,6 +1,6 @@
 package uk.co.credera.infraguardaws.util
 
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
